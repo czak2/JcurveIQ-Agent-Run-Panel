@@ -97,10 +97,6 @@ See [DECISIONS.md](./DECISIONS.md) for detailed reasoning on the five under-spec
 4. Cancelled with `sufficient_data` — positive, not alarming
 5. Task dependency display — subtle badge, resolved by completion
 
-### Git History
-
-The repo has 20+ incremental commits with conventional commit messages (`feat:`, `fix:`, `docs:`, `refactor:`), built in a bottom-up order: types → mock → state → leaf components → orchestrator → app → polish → docs. Each commit represents a logical stage of development.
-
 ## AI Tool Usage
 
 I used AI tools (ChatGPT, GLM, and DeepSeek) heavily throughout this project — for writing code, not just looking things up. Specifically:
