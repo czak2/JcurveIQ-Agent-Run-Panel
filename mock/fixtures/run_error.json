@@ -1,0 +1,192 @@
+[
+  {
+    "type": "run_started",
+    "run_id": "r_002",
+    "query": "Analyse Tesla's capital expenditure trends vs EV competitors (2020–2024)",
+    "timestamp": 1700001000000
+  },
+  {
+    "type": "agent_thought",
+    "task_id": "coordinator",
+    "thought": "Breaking into: (1) Tesla 10-K fetch, (2) competitor identification, (3) parallel competitor fetches, (4) synthesis.",
+    "timestamp": 1700001001000
+  },
+  {
+    "type": "task_spawned",
+    "task_id": "t_001",
+    "label": "Fetch Tesla 10-K filings (2020–2024)",
+    "agent": "filing_fetcher",
+    "spawned_by": "coordinator",
+    "parallel_group": null,
+    "depends_on": [],
+    "timestamp": 1700001002000
+  },
+  {
+    "type": "tool_call",
+    "task_id": "t_001",
+    "tool": "sec_edgar_search",
+    "input_summary": "ticker=TSLA, form=10-K, years=2020–2024",
+    "timestamp": 1700001003000
+  },
+  {
+    "type": "tool_result",
+    "task_id": "t_001",
+    "tool": "sec_edgar_search",
+    "output_summary": "4 filings found. Extracting capex line items...",
+    "timestamp": 1700001005000
+  },
+  {
+    "type": "partial_output",
+    "task_id": "t_001",
+    "content": "Tesla capex: 2020 $3.2B → 2023 $8.9B (+178%)",
+    "is_final": false,
+    "quality_score": null,
+    "timestamp": 1700001007000
+  },
+  {
+    "type": "partial_output",
+    "task_id": "t_001",
+    "content": "Tesla capex: 2020 $3.2B → 2023 $8.9B (+178%). 2024 10-K not yet available.",
+    "is_final": true,
+    "quality_score": 0.78,
+    "timestamp": 1700001009000
+  },
+  {
+    "type": "task_update",
+    "task_id": "t_001",
+    "status": "complete",
+    "error": null,
+    "reason": null,
+    "message": null,
+    "timestamp": 1700001009500
+  },
+  {
+    "type": "task_spawned",
+    "task_id": "t_002",
+    "label": "Fetch BYD annual report data",
+    "agent": "filing_fetcher",
+    "spawned_by": "coordinator",
+    "parallel_group": "competitors",
+    "depends_on": [],
+    "timestamp": 1700001010000
+  },
+  {
+    "type": "task_spawned",
+    "task_id": "t_003",
+    "label": "Fetch Rivian 10-K filings",
+    "agent": "filing_fetcher",
+    "spawned_by": "coordinator",
+    "parallel_group": "competitors",
+    "depends_on": [],
+    "timestamp": 1700001010000
+  },
+  {
+    "type": "task_spawned",
+    "task_id": "t_004",
+    "label": "Fetch Lucid Motors 10-K filings",
+    "agent": "filing_fetcher",
+    "spawned_by": "coordinator",
+    "parallel_group": "competitors",
+    "depends_on": [],
+    "timestamp": 1700001010000
+  },
+  {
+    "type": "tool_call",
+    "task_id": "t_002",
+    "tool": "sec_edgar_search",
+    "input_summary": "ticker=BYDDY, form=20-F, years=2020–2023",
+    "timestamp": 1700001012000
+  },
+  {
+    "type": "tool_call",
+    "task_id": "t_003",
+    "tool": "sec_edgar_search",
+    "input_summary": "ticker=RIVN, form=10-K, years=2020–2023",
+    "timestamp": 1700001012500
+  },
+  {
+    "type": "tool_call",
+    "task_id": "t_004",
+    "tool": "sec_edgar_search",
+    "input_summary": "ticker=LCID, form=10-K, years=2020–2023",
+    "timestamp": 1700001012600
+  },
+  {
+    "type": "tool_result",
+    "task_id": "t_002",
+    "tool": "sec_edgar_search",
+    "output_summary": "BYD is a foreign private issuer — limited EDGAR data. Found 20-F filings.",
+    "timestamp": 1700001014000
+  },
+  {
+    "type": "task_update",
+    "task_id": "t_003",
+    "status": "failed",
+    "error": "SEC EDGAR service unavailable (503). Retrying in 30s.",
+    "reason": null,
+    "message": null,
+    "timestamp": 1700001015000
+  },
+  {
+    "type": "task_update",
+    "task_id": "t_004",
+    "status": "running",
+    "error": null,
+    "reason": null,
+    "message": null,
+    "timestamp": 1700001015500
+  },
+  {
+    "type": "partial_output",
+    "task_id": "t_002",
+    "content": "BYD capex: 2020 ¥26.6B → 2023 ¥73.5B. Rapid expansion in battery and vehicle production.",
+    "is_final": true,
+    "quality_score": 0.71,
+    "timestamp": 1700001017000
+  },
+  {
+    "type": "task_update",
+    "task_id": "t_002",
+    "status": "complete",
+    "error": null,
+    "reason": null,
+    "message": null,
+    "timestamp": 1700001017500
+  },
+  {
+    "type": "task_update",
+    "task_id": "t_003",
+    "status": "failed",
+    "error": "SEC EDGAR service still unavailable (503). All retries exhausted.",
+    "reason": null,
+    "message": null,
+    "timestamp": 1700001025000
+  },
+  {
+    "type": "tool_result",
+    "task_id": "t_004",
+    "tool": "sec_edgar_search",
+    "output_summary": "Lucid Motors filings found. Extracting capex data...",
+    "timestamp": 1700001026000
+  },
+  {
+    "type": "partial_output",
+    "task_id": "t_004",
+    "content": "Lucid capex: 2020 $0.7B → 2023 $2.1B. Heavy manufacturing investment phase.",
+    "is_final": false,
+    "quality_score": null,
+    "timestamp": 1700001028000
+  },
+  {
+    "type": "agent_thought",
+    "task_id": "coordinator",
+    "thought": "Was planning to fetch Volkswagen and NIO data next, but run encountered critical failure before they could be spawned. Lucid data still in progress.",
+    "timestamp": 1700001029000
+  },
+  {
+    "type": "run_error",
+    "run_id": "r_002",
+    "message": "Coordinator encountered an unrecoverable error. Critical data source (Rivian 10-K) unavailable after retries. Partial results available for Tesla and BYD. Lucid Motors data was still being retrieved. Planned tasks for Volkswagen and NIO were never started.",
+    "timestamp": 1700001030000
+  }
+]
